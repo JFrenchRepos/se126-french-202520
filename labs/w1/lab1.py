@@ -15,9 +15,44 @@
 #-------------------------------------------------------------------------------------------------------------------------------------------------#
 #FUNCTIONS
 #-------------------------------------------------------------------------------------------------------------------------------------------------#
-def difference(name, people, maxpeople):
-    diff =  maxpeople - people
+def difference(people, maxpeople):
+    diff = maxpeople - people
+    return diff
 
+def response(res):
+    while res != "y" and res != "n":
+            print("###Invalid answer, resubmit###")
+            print("")
+            res = input("Check a room? (Y/N): ").lower()
+
+    if res == "y":
+        return res
+    else:
+        print("----------=====GOODBYE!=====----------")
+#-------------------------------------------------------------------------------------------------------------------------------------------------#
+#CODE START
+#-------------------------------------------------------------------------------------------------------------------------------------------------#
+print("----------=====FIRE REGULATION CHECKER=====----------")
+res = input("Start? (Y/N): ").lower()
+print("")
+while res != "y" and res != "n":
+    print("###Invalid answer, resubmit###")
+    print("")
+    res = input("Start? (Y/N): ").lower()
+
+while res == "y":
+    response(res)      
+    print("----------=====CAPACITY=====----------")
+    name = str(input("What is the meeting name?: "))
+    print("")
+
+    people = int(input("How many people will be attending?: "))
+    print("")
+
+    maxpeople = int(input("What is the meeting room's maximum allowed capacity?: "))
+    print("")
+
+    diff = difference(people, maxpeople)
     if diff > 0:
         print("||", name, "can fit", abs(diff),"more people, and it meets fire regulations. ||")
         print("")
@@ -26,55 +61,12 @@ def difference(name, people, maxpeople):
         print("")
     elif diff == 0:
         print("||", name, "has reached capacity. ||")
-        print("")
+    print("")
 
-def response(res):
-    res = input("Check a room? (Y/N): ").lower()
-    while res != "y" and res != "n":
-            print("###Invalid answer, resubmit###")
-            print("")
-            res = input("Check a room? (Y/N): ").lower()
-
-    while res == "y":
-        print("----------=====CAPACITY=====----------")
-        name = str(input("What is the meeting name?: "))
-        print("")
-
-        people = int(input("How many people will be attending?: "))
-        print("")
-
-        maxpeople = int(input("What is the meeting room's maximum allowed capacity?: "))
-        print("")
-    
-        difference(name, people, maxpeople)
-
-        res = input("Check another room? (Y/N): ").lower()
-        while res != "y" and res != "n":
-            print("###Invalid answer, resubmit###")
-            print("")
-            res = input("Check another room? (Y/N): ").lower()
-
-        print("")
-
-    print("----------=====BACK TO START=====----------")
-#-------------------------------------------------------------------------------------------------------------------------------------------------#
-#LOOP START
-#-------------------------------------------------------------------------------------------------------------------------------------------------#
-print("----------=====FIRE REGULATION CHECKER=====----------")
-res = input("Start? (Y/N): ").lower()
-while res != "y" and res != "n":
-            print("###Invalid answer, resubmit###")
-            print("")
-            res = input("Start? (Y/N): ").lower()
-
-while res == "y":
-    response(res)
     res = input("Start again? (Y/N): ").lower()
     while res != "y" and res != "n":
-            print("###Invalid answer, resubmit###")
-            print("")
-            res = input("Start again? (Y/N): ").lower()
-
-    print("")
+        print("###Invalid answer, resubmit###")
+        print("")
+        res = input("Start? (Y/N): ").lower()
 
 print("----------=====GOODBYE!=====----------")
