@@ -11,24 +11,27 @@
 import csv
 
 #---connected to file-----------------------------------------------------------------------------------------------------------------------------#
-totalrec = 0
-
 with open("labs/w2/csvs/filehandling.csv") as csvfile:
     file = csv.reader(csvfile)
 
-    print(f"{"TYPE":20}{"BRAND":20}{"CPU":20}{"RAM":20}{"1ST DISK":20}{"NO HDD":20}{"2ND DISK":20}{"OS":20}{"YR":20}")
+    print(f"{"TYPE":10}{"BRAND":15}{"CPU":8}{"RAM":8}{"1ST DISK":12}{"NO HDD":8}{"2ND DISK":12}{"OS":8}{"YR":5}")
     print("------------------------------------------------------------------------------------------------------------------------------------------------------")
 
     for rec in file:
-        totalrec += 1
-
         type = rec[0]
+        if type == "D":
+            type = "Desktop"
+        elif type == "L":
+            type = "Laptop"
         brand = rec[1]
+        if brand == "DL":
+            brand = "Dell"
+        elif brand == "GW":
+            brand = "Gateway"
         cpu = rec[2]
         ram = rec[3]
         disk1 = rec[4]
         hdd = int(rec[5])
-
         if hdd == 2:
             disk2 = rec[6]
             os = rec[7]
@@ -39,5 +42,5 @@ with open("labs/w2/csvs/filehandling.csv") as csvfile:
             yr = rec[7]
         
     
-        print(f"{type:20}{brand:20}{cpu:20}{ram:20}{disk1:20}{hdd:20}{disk2:20}{os:20}{yr:20}")
+        print(f"{type:10}{brand:15}{cpu:8}{ram:8}{disk1:12}{hdd:<8}{disk2:12}{os:8}{yr:5}")
 
