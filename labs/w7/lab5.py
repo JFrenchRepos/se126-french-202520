@@ -12,13 +12,6 @@ def swap(index, listName):
     listName[index] = listName[index + 1]
     listName[index + 1] = temp
 
-def display(dex):
-    print(f"{'Library Number':10}\t{'Title':<32}\t{'Author':30}\t{'Genre':30}\t{'Pages':5}\t{'Status':10}")
-    print("--------------------------------------------------------------------------------------------------------------------------------------------")
-    for i in dex:
-        print(f"{libraries[i]:10}\t{titles[i]:<32}\t{authors[i]:30}\t{genres[i]:30}\t{pages[i]:5}\t{statuses[i]:10}")
-    print("--------------------------------------------------------------------------------------------------------------------------------------------")
-
 def menu():
     while True:
         print("\nLibrary Menu")
@@ -64,7 +57,12 @@ while ans == "y":
                         swap(j, titles)
 
             dex = list(range(len(titles)))
-            display(dex)
+            print(f"{'Library Number':10}\t{'Title':<32}\t{'Author':30}\t{'Genre':30}\t{'Pages':5}\t{'Status':10}")
+            print("--------------------------------------------------------------------------------------------------------------------------------------------")
+            for i in dex:
+                print(f"{libraries[i]:10}\t{titles[i]:<32}\t{authors[i]:30}\t{genres[i]:30}\t{pages[i]:5}\t{statuses[i]:10}")
+            print("--------------------------------------------------------------------------------------------------------------------------------------------")
+
     elif choice == "2":
             for i in range(len(titles) - 1):
                 for j in range(len(titles) - 1):
@@ -93,6 +91,7 @@ while ans == "y":
                 print("--------------------------------------------------------------------------------------------------------------------------------------------\n")
             else:
                 print("No results found!")
+
     elif choice == "3":
             found = []
             search = input("Enter the Author you are looking for: ")
@@ -107,30 +106,88 @@ while ans == "y":
                 print(f"{'Library Number':10}\t{'Title':<32}\t{'Author':30}\t{'Genre':30}\t{'Pages':5}\t{'Status':10}")
                 print(f"\n--------------------------------------------------------------------------------------------------------------------------------------------")
                 for i in range(0, len(found)):
-                     print(f"{libraries[i]:10}\t{titles[i]:<32}\t{authors[i]:30}\t{genres[i]:30}\t{pages[i]:5}\t{statuses[i]:10}")
+                     print(f"{libraries[found[i]]:10}\t{titles[found[i]]:<32}\t{authors[found[i]]:30}\t{genres[found[i]]:30}\t{pages[found[i]]:5}\t{statuses[found[i]]:10}")
                 
-                print("--------------------------------------------------------------------------------------------------------------------------------------------\n")      
+                print("--------------------------------------------------------------------------------------------------------------------------------------------\n")
+
     elif choice == "4":
-            genre = input("Enter the Genre you are looking for: ")
-            dex = search(genres, genre)
-            if dex:
-                display(dex)
-            else:
+            found = []
+            search = input("Enter the Genre you are looking for: ")
+            for i in range(0, len(genres)):
+                if search.lower() in genres[i].lower():
+                    found.append(i)
+
+            if not found:
                 print("No results found!")
+            else:
+                print(f"\nFound {search}: ")
+                print(f"{'Library Number':10}\t{'Title':<32}\t{'Author':30}\t{'Genre':30}\t{'Pages':5}\t{'Status':10}")
+                print(f"\n--------------------------------------------------------------------------------------------------------------------------------------------")
+                for i in range(0, len(found)):
+                     print(f"{libraries[found[i]]:10}\t{titles[found[i]]:<32}\t{authors[found[i]]:30}\t{genres[found[i]]:30}\t{pages[found[i]]:5}\t{statuses[found[i]]:10}")
+                
+                print("--------------------------------------------------------------------------------------------------------------------------------------------\n")
     elif choice == "5":
-            library = input("Enter the Library Number you are looking for: ")
-            dex = search(libraries, library)
-            if dex:
-                display(dex)
+            search = input("Enter the Library Number you are looking for: ")
+
+            min = 0
+            max = len(titles) - 1
+            mid = int((min + max) / 2 )
+
+            while min < max and search.lower() != libraries[mid].lower():
+                if search.lower() < libraries[mid].lower():
+                    max = mid - 1
+                else:
+                    min = mid + 1
+
+                mid = int((min + max) / 2 )
+    
+            if search.lower() == libraries[mid].lower():
+                print(f"\nFound {search}: ")
+                print(f"{'Library Number':10}\t{'Title':<32}\t{'Author':30}\t{'Genre':30}\t{'Pages':5}\t{'Status':10}")
+                print(f"\n--------------------------------------------------------------------------------------------------------------------------------------------")
+                print(f"{libraries[mid]:10}\t{titles[mid]:<32}\t{authors[mid]:30}\t{genres[mid]:30}\t{pages[mid]:5}\t{statuses[mid]:10}")
+                print("--------------------------------------------------------------------------------------------------------------------------------------------\n")
             else:
                 print("No results found!")
+
     elif choice == "6":
-            dex = search(statuses, "available")
-            display(dex)
+            found = []
+            for i in range(0, len(statuses)):
+                 if "available" in statuses[i].lower():
+                      found.append(i)
+            
+            if not found:
+                print("No results found!")
+            else:
+                print(f"\nCurrently Available Books:")
+                print(f"{'Library Number':10}\t{'Title':<32}\t{'Author':30}\t{'Genre':30}\t{'Pages':5}\t{'Status':10}")
+                print(f"\n--------------------------------------------------------------------------------------------------------------------------------------------")
+                for i in range(0, len(found)):
+                     print(f"{libraries[found[i]]:10}\t{titles[found[i]]:<32}\t{authors[found[i]]:30}\t{genres[found[i]]:30}\t{pages[found[i]]:5}\t{statuses[found[i]]:10}")
+                
+                print("--------------------------------------------------------------------------------------------------------------------------------------------\n")
+
     elif choice == "7":
-            dex = search(statuses, "on loan")
+            found = []
+            for i in range(0, len(statuses)):
+                 if "on loan" in statuses[i].lower():
+                      found.append(i)
+            
+            if not found:
+                print("No results found!")
+            else:
+                print(f"\nCurrently Loaned Books:")
+                print(f"{'Library Number':10}\t{'Title':<32}\t{'Author':30}\t{'Genre':30}\t{'Pages':5}\t{'Status':10}")
+                print(f"\n--------------------------------------------------------------------------------------------------------------------------------------------")
+                for i in range(0, len(found)):
+                     print(f"{libraries[found[i]]:10}\t{titles[found[i]]:<32}\t{authors[found[i]]:30}\t{genres[found[i]]:30}\t{pages[found[i]]:5}\t{statuses[found[i]]:10}")
+                
+                print("--------------------------------------------------------------------------------------------------------------------------------------------\n")
+            
     elif choice == "8":
             print("Goodbye!")
             ans = "x"
+
     else:
             print("Invalid choice!")
